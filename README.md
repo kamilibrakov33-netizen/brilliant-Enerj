@@ -20,13 +20,25 @@ assets/style.css  стили
 assets/main.js    меню, вкладки, отправка формы
 assets/logo.svg   временный логотип — заменить на настоящий
 netlify.toml      настройки Netlify
+netlify/functions/submission-created.mjs  заявка с сайта → Telegram-группа мастеров
+netlify/functions/autopost.mjs            автопостинг в канал @brilliant_energy (9:00, 13:00, 17:00, 20:00 МСК)
+data/posts.mjs    очередь постов: дата, время, рубрика, заголовок, текст, фото
 ```
 
 ## Публикация на Netlify
 
 1. Netlify → сайт `brilliant-enerji` → Site configuration → Build & deploy → Link repository → выбрать этот репозиторий и ветку.
 2. Build command — пусто, Publish directory — `.`
-3. Заявки с формы появятся в Netlify → Forms → `zayavka`. Уведомления на почту: Forms → Form notifications → Email.
+3. Site configuration → Environment variables → добавить `TELEGRAM_BOT_TOKEN` — токен бота @brilliant_energy_post_bot (из @BotFather → /mybots → API Token). Без него автопостинг и отправка заявок в Telegram не работают.
+4. Forms → включить Form detection. Заявки видны в Netlify → Forms → `zayavka` и сразу приходят в группу мастеров.
+
+Необязательные переменные: `TELEGRAM_CHANNEL` (по умолчанию `@brilliant_energy`), `TELEGRAM_LEADS_CHAT_ID` (по умолчанию группа мастеров `-1004458487275`).
+
+## Автопостинг
+
+Функция `autopost` запускается 4 раза в день и публикует пост, у которого `date` и `time` совпадают с текущими по Москве. Сценарий автопостинга в Make больше не нужен — он не занимает лимит бесплатного тарифа.
+
+Чтобы добавить посты — допишите их в конец `data/posts.mjs` с новыми датами. Сейчас очередь расписана до 12.10.2026.
 
 ## Что заменить
 
