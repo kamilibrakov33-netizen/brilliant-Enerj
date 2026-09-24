@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Brilliant Energy">
-  <rect width="64" height="64" rx="14" fill="#FFC400"/>
-  <path d="M36 6 14 36h14l-4 22 26-32H35l5-20z" fill="#0B0F17"/>
+  <rect width="64" height="64" rx="14" fill="#1E2126"/>
+  <path d="M20 10h24l12 14-24 32L8 24z" fill="none" stroke="#F2B705" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M8 24h48M20 10l6 14 6-14 6 14 6-14" fill="none" stroke="#F2B705" stroke-width="2" stroke-linejoin="round" opacity=".55"/>
+  <path d="M35 24 26 38h7l-3 12 10-16h-7l3-10z" fill="#F2B705"/>
 </svg>
