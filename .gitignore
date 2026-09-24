@@ -23,3 +23,5 @@ rad.json
 TestResults.xml
 # Предпросмотр сайта одним файлом
 preview.html
+# Служебные файлы Netlify CLI
+.netlify/
