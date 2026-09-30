@@ -2,6 +2,7 @@
 //   POST /api/lead            — заявка с формы сайта
 //   POST /api/pay             — создать платёж ЮKassa
 //   POST /api/yookassa        — уведомление ЮKassa об оплате
+//   GET  /api/claim?o=&chat=&k= — автовыдача курса (вызывает бот)
 // Каждая заявка и оплата СНАЧАЛА записывается в Object Storage (Россия, ru-central1),
 // и только потом уходит в Telegram — так требует ч. 5 ст. 18 152-ФЗ.
 // Обработчики create-payment и yookassa-webhook — те же файлы, что на Netlify
@@ -10,6 +11,7 @@ import { randomUUID } from 'node:crypto';
 import createPayment from './create-payment.mjs';
 import yookassaWebhook from './yookassa-webhook.mjs';
 import { leadText } from './submission-created.mjs';
+import claimCourse from './claim-course.mjs';
 
 const BUCKET = process.env.DATA_BUCKET;
 const CHAT = process.env.TELEGRAM_LEADS_CHAT_ID || '-1004458487275';
@@ -76,6 +78,11 @@ async function viaWeb(handler, event) {
 export async function route(event, context) {
   const action = event.params?.action || event.pathParams?.action || String(event.path || '').split('/').pop();
   try {
+    if (action === 'claim' && event.httpMethod === 'GET') {
+      const qs = new URLSearchParams(event.queryStringParameters || {}).toString();
+      const res = await claimCourse(new Request(`https://local/?${qs}`));
+      return { statusCode: res.status, body: await res.text() };
+    }
     if (event.httpMethod !== 'POST') return reply(405, { error: 'Только POST' });
     if (action === 'lead') return await lead(event, context);
     if (action === 'pay') {

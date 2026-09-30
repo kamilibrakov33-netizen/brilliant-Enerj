@@ -11,6 +11,13 @@ paths:
         object: index.html
         service_account_id: ${SA_ID}
   /api/{action}:
+    get:
+      parameters:
+        - { name: action, in: path, required: true, schema: { type: string } }
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: ${FUNCTION_ID}
+        service_account_id: ${SA_ID}
     post:
       parameters:
         - { name: action, in: path, required: true, schema: { type: string } }

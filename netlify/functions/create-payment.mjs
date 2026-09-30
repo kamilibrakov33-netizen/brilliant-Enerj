@@ -1,7 +1,8 @@
 // Создаёт платёж в ЮKassa и возвращает ссылку на страницу оплаты.
 // Нужны переменные окружения: YOOKASSA_SHOP_ID, YOOKASSA_SECRET_KEY.
 // YOOKASSA_RECEIPT=1 — передавать данные для чека (если в ЮKassa подключены «Чеки от ЮKassa»).
-import { randomUUID } from 'node:crypto';
+import { randomUUID, randomBytes } from 'node:crypto';
+import { saveOrder } from './lib/orders.mjs';
 
 export const TARIFFS = {
   start: { title: 'Старт', price: '990.00' },
@@ -16,7 +17,7 @@ const json = (status, body) =>
 
 const clean = (s, max = 100) => String(s || '').trim().slice(0, max);
 
-export function buildPayment(input) {
+export function buildPayment(input, order = '') {
   const tariff = TARIFFS[input.tariff];
   if (!tariff) throw new Error('Неизвестный тариф');
   const name = clean(input.name);
@@ -28,14 +29,15 @@ export function buildPayment(input) {
   const payment = {
     amount: { value: tariff.price, currency: 'RUB' },
     capture: true,
-    confirmation: { type: 'redirect', return_url: `${SITE}/spasibo.html` },
+    confirmation: { type: 'redirect', return_url: `${SITE}/spasibo.html${order ? `?o=${order}` : ''}` },
     description,
     metadata: {
       tariff: input.tariff,
       name,
       phone,
       telegram: clean(input.telegram, 60),
-      email
+      email,
+      order
     }
   };
 
@@ -62,10 +64,11 @@ export default async (req) => {
   if (!shop || !key) return json(500, { error: 'Оплата ещё не настроена' });
 
   let payment;
+  const order = randomBytes(8).toString('hex');
   try {
     const input = await req.json();
     if (!input.consent) return json(400, { error: 'Нужно согласие с офертой' });
-    payment = buildPayment(input);
+    payment = buildPayment(input, order);
   } catch (e) {
     return json(400, { error: e.message });
   }
@@ -84,5 +87,7 @@ export default async (req) => {
     console.error('ЮKassa:', res.status, JSON.stringify(data));
     return json(502, { error: 'ЮKassa не приняла платёж' });
   }
+  // Номер заказа → номер платежа: по нему бот потом сам проверит оплату и выдаст курс
+  try { await saveOrder(order, data.id); } catch (e) { console.error('Не сохранён заказ', e.message); }
   return json(200, { url: data.confirmation.confirmation_url });
 };

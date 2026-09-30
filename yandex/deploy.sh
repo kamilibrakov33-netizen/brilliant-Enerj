@@ -2,13 +2,13 @@
 # Развёртывание сайта и API в Яндекс Облаке (ru-central1).
 # Нужно: yc CLI, авторизованный сервисным аккаунтом (yc config set service-account-key key.json),
 # и переменные окружения с секретами:
-#   FOLDER_ID, TELEGRAM_BOT_TOKEN, YOOKASSA_SHOP_ID, YOOKASSA_SECRET_KEY
+#   FOLDER_ID, TELEGRAM_BOT_TOKEN, YOOKASSA_SHOP_ID, YOOKASSA_SECRET_KEY, CLAIM_KEY
 # Необязательно: SITE_URL (адрес сайта, по умолчанию домен API Gateway), YOOKASSA_RECEIPT (по умолчанию 1).
 # Скрипт можно запускать повторно: существующие ресурсы переиспользуются, код и сайт обновляются.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-: "${FOLDER_ID:?}" "${TELEGRAM_BOT_TOKEN:?}" "${YOOKASSA_SHOP_ID:?}" "${YOOKASSA_SECRET_KEY:?}"
+: "${FOLDER_ID:?}" "${TELEGRAM_BOT_TOKEN:?}" "${YOOKASSA_SHOP_ID:?}" "${YOOKASSA_SECRET_KEY:?}" "${CLAIM_KEY:?}"
 yc config set folder-id "$FOLDER_ID" >/dev/null
 SUFFIX=${FOLDER_ID: -6}
 SITE_BUCKET=brilliant-site-$SUFFIX
@@ -52,13 +52,13 @@ SITE_URL=${SITE_URL:-https://$GW_DOMAIN}
 
 # 6. Код функции: app.mjs + обработчики оплаты из netlify/functions
 mkdir -p "$TMP/api"
-cp yandex/api/* "$TMP/api"/
-cp netlify/functions/create-payment.mjs netlify/functions/yookassa-webhook.mjs netlify/functions/submission-created.mjs "$TMP/api"/
+cp -r yandex/api/* "$TMP/api"/
+cp netlify/functions/create-payment.mjs netlify/functions/yookassa-webhook.mjs netlify/functions/submission-created.mjs netlify/functions/claim-course.mjs "$TMP/api"/
 (cd "$TMP/api" && zip -qr ../api.zip .)
 yc serverless function version create --function-id "$FN_ID" \
   --runtime nodejs22 --entrypoint index.handler --memory 256m --execution-timeout 20s \
   --service-account-id "$SA_ID" --source-path "$TMP/api.zip" \
-  --environment "DATA_BUCKET=$DATA_BUCKET,URL=$SITE_URL,TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN,YOOKASSA_SHOP_ID=$YOOKASSA_SHOP_ID,YOOKASSA_SECRET_KEY=$YOOKASSA_SECRET_KEY,YOOKASSA_RECEIPT=${YOOKASSA_RECEIPT:-1}" >/dev/null
+  --environment "DATA_BUCKET=$DATA_BUCKET,URL=$SITE_URL,TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN,YOOKASSA_SHOP_ID=$YOOKASSA_SHOP_ID,YOOKASSA_SECRET_KEY=$YOOKASSA_SECRET_KEY,YOOKASSA_RECEIPT=${YOOKASSA_RECEIPT:-1},CLAIM_KEY=$CLAIM_KEY" >/dev/null
 
 rm -rf "$TMP"
 echo "Сайт:            $SITE_URL"

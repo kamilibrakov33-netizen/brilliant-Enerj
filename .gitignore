@@ -26,3 +26,4 @@ preview.html
 # Служебные файлы Netlify CLI
 .netlify/
 Карточка_ИП_*.pdf
+node_modules/
