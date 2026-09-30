@@ -56,3 +56,14 @@ data/posts.mjs    очередь постов: дата, время, рубри�
 Переменные окружения в Netlify: `YOOKASSA_SHOP_ID`, `YOOKASSA_SECRET_KEY`, `YOOKASSA_RECEIPT=1` — чеки 54-ФЗ через «Чеки от ЮKassa» (подключены, боевой магазин).
 
 В ЮKassa → Интеграция → HTTP-уведомления: адрес `https://brilliant-enerji.netlify.app/.netlify/functions/yookassa-webhook`, событие `payment.succeeded`.
+
+## Яндекс Облако (переезд, 152-ФЗ)
+
+Папка `yandex/` — тот же сайт и та же оплата, но в России (ru-central1):
+- сайт лежит в приватном бакете Object Storage и отдаётся через API Gateway (`yandex/gateway.yaml`);
+- функция `yandex/api` принимает `/api/lead`, `/api/pay`, `/api/yookassa`. Каждая заявка, заказ и оплата сначала пишется JSON-файлом в бакет данных `brilliant-data-…`, потом уходит в Telegram;
+- обработчики оплаты общие с Netlify (`netlify/functions/*.mjs`), `deploy.sh` копирует их в функцию.
+
+Развернуть: `yc` CLI под сервисным аккаунтом, затем
+`FOLDER_ID=… TELEGRAM_BOT_TOKEN=… YOOKASSA_SHOP_ID=… YOOKASSA_SECRET_KEY=… yandex/deploy.sh`.
+Скрипт выводит адрес сайта и адрес для HTTP-уведомлений ЮKassa. Формы на сайте сами выбирают адрес API: на `*.netlify.app` — Netlify, на любом другом домене — `/api/*`.

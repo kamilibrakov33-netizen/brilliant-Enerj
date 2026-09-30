@@ -1,0 +1,30 @@
+openapi: 3.0.0
+info:
+  title: brilliant-energy
+  version: 1.0.0
+paths:
+  /:
+    get:
+      x-yc-apigateway-integration:
+        type: object_storage
+        bucket: ${SITE_BUCKET}
+        object: index.html
+        service_account_id: ${SA_ID}
+  /api/{action}:
+    post:
+      parameters:
+        - { name: action, in: path, required: true, schema: { type: string } }
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: ${FUNCTION_ID}
+        service_account_id: ${SA_ID}
+  /{file+}:
+    get:
+      parameters:
+        - { name: file, in: path, required: true, schema: { type: string } }
+      x-yc-apigateway-integration:
+        type: object_storage
+        bucket: ${SITE_BUCKET}
+        object: '{file}'
+        error_object: index.html
+        service_account_id: ${SA_ID}

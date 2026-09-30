@@ -74,7 +74,9 @@
     button.disabled = true;
     status.className = 'form__status';
     status.textContent = 'Отправляем…';
-    fetch('/', {
+    // На Netlify заявку принимает Netlify Forms, в Яндекс Облаке — наша функция /api/lead
+    var onNetlify = /netlify\.app$/.test(location.hostname);
+    fetch(onNetlify ? '/' : '/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(new FormData(form)).toString()
