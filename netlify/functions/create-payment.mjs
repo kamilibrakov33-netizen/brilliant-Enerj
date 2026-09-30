@@ -40,7 +40,7 @@ export function buildPayment(input) {
   };
 
   if (process.env.YOOKASSA_RECEIPT === '1') {
-    const customer = email.includes('@') ? { email } : { phone: '+' + phone.replace(/\D/g, '').replace(/^8/, '7') };
+    const customer = email.includes('@') ? { email } : { phone: phone.replace(/\D/g, '').replace(/^8/, '7') };
     payment.receipt = {
       customer,
       items: [{

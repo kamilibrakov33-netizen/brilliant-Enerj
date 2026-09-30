@@ -53,6 +53,6 @@ data/posts.mjs    очередь постов: дата, время, рубри�
 - `netlify/functions/create-payment.mjs` — создаёт платёж, цена берётся на сервере по тарифу;
 - `netlify/functions/yookassa-webhook.mjs` — принимает уведомление `payment.succeeded`, перепроверяет платёж через API и пишет в группу мастеров.
 
-Переменные окружения в Netlify: `YOOKASSA_SHOP_ID`, `YOOKASSA_SECRET_KEY`, по желанию `YOOKASSA_RECEIPT=1` (если подключены «Чеки от ЮKassa»).
+Переменные окружения в Netlify: `YOOKASSA_SHOP_ID`, `YOOKASSA_SECRET_KEY`, `YOOKASSA_RECEIPT=1` — чеки 54-ФЗ через «Чеки от ЮKassa» (подключены, боевой магазин).
 
 В ЮKassa → Интеграция → HTTP-уведомления: адрес `https://brilliant-enerji.netlify.app/.netlify/functions/yookassa-webhook`, событие `payment.succeeded`.
