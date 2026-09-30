@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Покупка курса — Brilliant Energy</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="header">
+  <div class="container header__row">
+    <a class="brand" href="index.html"><img src="assets/logo.svg" alt="" width="36" height="36"><span>Brilliant<b>Energy</b></span></a>
+  </div>
+</header>
+<main class="doc">
+  <div class="container container--narrow">
+    <h1>Оформление покупки</h1>
+    <p id="tariff-line" class="lead">Курс «Электромонтаж с нуля»</p>
+    <form class="form" id="buy">
+      <fieldset class="roles">
+        <legend>Тариф</legend>
+        <label><input type="radio" name="tariff" value="start" checked> «Старт» — 990 ₽</label>
+        <label><input type="radio" name="tariff" value="master"> «Мастер» — 2 990 ₽</label>
+        <label><input type="radio" name="tariff" value="praktik"> «Практик» — 9 900 ₽</label>
+      </fieldset>
+      <label>Имя<input type="text" name="name" required autocomplete="name"></label>
+      <div class="form__row">
+        <label>Телефон<input type="tel" name="phone" required autocomplete="tel" placeholder="+7"></label>
+        <label>Telegram (ник)<input type="text" name="telegram" placeholder="@username"></label>
+      </div>
+      <label>Email — для чека<input type="text" name="email" autocomplete="email" inputmode="email"></label>
+      <label class="consent"><input type="checkbox" name="consent" required><span>Принимаю условия <a href="oferta.html" target="_blank">оферты</a> и <a href="privacy.html" target="_blank">политики конфиденциальности</a></span></label>
+      <button class="btn btn--accent btn--wide" type="submit">Перейти к оплате</button>
+      <p class="form__status" id="status" role="status" aria-live="polite"></p>
+    </form>
+    <p class="note">Оплата проходит на защищённой странице ЮKassa. Доступ к курсу придёт в Telegram-бот @brilliant_energy_post_bot. <a href="oplata.html">Условия оплаты и возврата</a>.</p>
+  </div>
+</main>
+<footer class="footer">
+  <div class="container footer__bottom">ИП Ибраков Камиль Мурадович · ИНН 054402187372 · ОГРНИП 322057100058808 · +7 960 911-19-98 · kamilibrakov33@gmail.com<br>
+  <a href="index.html">Главная</a> · <a href="index.html#tariffs">Тарифы</a> · <a href="oferta.html">Оферта</a> · <a href="oplata.html">Оплата и возврат</a> · <a href="privacy.html">Политика конфиденциальности</a></div>
+</footer>
+<script>
+(function(){
+  var f=document.getElementById('buy'), st=document.getElementById('status');
+  var t=new URLSearchParams(location.search).get('t');
+  if(t){var r=f.querySelector('input[name=tariff][value="'+t+'"]'); if(r) r.checked=true;}
+  f.addEventListener('submit',function(e){
+    e.preventDefault(); var b=f.querySelector('button'); b.disabled=true;
+    st.className='form__status'; st.textContent='Создаём платёж…';
+    var d=Object.fromEntries(new FormData(f));
+    fetch('/.netlify/functions/create-payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
+      .then(function(r){return r.json().then(function(j){if(!r.ok) throw new Error(j.error||r.status); return j;});})
+      .then(function(j){location.href=j.url;})
+      .catch(function(err){st.className='form__status err'; st.innerHTML='Не получилось создать платёж ('+err.message+'). Напишите в <a href="https://t.me/brilliant_energy_post_bot?start=kurs">Telegram</a> или позвоните +7 960 911-19-98.'; b.disabled=false;});
+  });
+})();
+</script>
+</body>
+</html>

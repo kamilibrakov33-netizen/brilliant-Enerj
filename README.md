@@ -44,3 +44,15 @@ data/posts.mjs    очередь постов: дата, время, рубри�
 
 - **Логотип:** положить файл в `assets/` и поправить ссылки на `assets/logo.svg`.
 - **Фото:** сейчас стоковые фото с Pexels (бесплатная лицензия). На сайте они не подписаны как «наши объекты». Когда появятся свои снимки с объектов, заменить адреса в `style="--img:url(...)"` в `index.html`.
+
+## Оплата через ЮKassa
+
+Страницы для проверки ЮKassa («витрина»): `oferta.html` (оферта), `oplata.html` (оплата, получение, возврат), `kupit.html` (покупка тарифа), `spasibo.html` (после оплаты). Кнопки «Купить» — в блоке тарифов на главной.
+
+Функции:
+- `netlify/functions/create-payment.mjs` — создаёт платёж, цена берётся на сервере по тарифу;
+- `netlify/functions/yookassa-webhook.mjs` — принимает уведомление `payment.succeeded`, перепроверяет платёж через API и пишет в группу мастеров.
+
+Переменные окружения в Netlify: `YOOKASSA_SHOP_ID`, `YOOKASSA_SECRET_KEY`, по желанию `YOOKASSA_RECEIPT=1` (если подключены «Чеки от ЮKassa»).
+
+В ЮKassa → Интеграция → HTTP-уведомления: адрес `https://brilliant-enerji.netlify.app/.netlify/functions/yookassa-webhook`, событие `payment.succeeded`.
