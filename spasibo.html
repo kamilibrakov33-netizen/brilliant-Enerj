@@ -33,6 +33,11 @@
   <div class="container footer__bottom">ИП Ибраков Камиль Мурадович · ИНН 054402187372 · ОГРНИП 322057100058808 · +7 960 911-19-98 · kamilibrakov33@gmail.com<br>
   <a href="index.html">Главная</a> · <a href="index.html#tariffs">Тарифы</a> · <a href="oferta.html">Оферта</a> · <a href="oplata.html">Оплата и возврат</a> · <a href="privacy.html">Политика конфиденциальности</a></div>
 </footer>
-
+<script>
+(function(){
+  var o=(new URLSearchParams(location.search).get('o')||'').replace(/[^a-f0-9]/g,'');
+  if(o) document.getElementById('open').href='https://t.me/brilliant_energy_post_bot?start=o_'+o;
+})();
+</script>
 </body>
 </html>
