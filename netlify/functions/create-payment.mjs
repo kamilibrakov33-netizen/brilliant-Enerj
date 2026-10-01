@@ -6,8 +6,8 @@ import { saveOrder } from './lib/orders.mjs';
 
 export const TARIFFS = {
   start: { title: 'Старт', price: '990.00' },
-  master: { title: 'Мастер', price: '2990.00' },
-  praktik: { title: 'Практик', price: '9900.00' }
+  master: { title: 'Мастер', price: '4900.00' },
+  praktik: { title: 'Практик', price: '14900.00' }
 };
 
 const SITE = process.env.URL || 'https://brilliant-enerji.netlify.app';
