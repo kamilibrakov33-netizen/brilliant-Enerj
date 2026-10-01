@@ -241,3 +241,20 @@ details p { color: var(--muted); margin: 12px 0 0; }
   html { scroll-behavior: auto; }
   * { transition: none !important; }
 }
+
+/* Программа региональных представителей */
+.promo { background: rgba(242, 183, 5, .12); border: 1px solid var(--accent); border-radius: var(--radius); padding: 20px 24px; margin: 28px 0; }
+.promo b { color: var(--accent); }
+.promo__timer { font-size: 22px; font-weight: 800; margin: 4px 0 0; }
+.tbl { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 16px; }
+.tbl th, .tbl td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tbl th { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+.tbl td:last-child { white-space: nowrap; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.box h3 { font-size: 19px; }
+.box ul { padding-left: 18px; margin: 0; }
+.box li { margin: 6px 0; color: var(--muted); font-size: 15px; }
+.copy { background: var(--bg); border: 1px dashed var(--line); border-radius: 12px; padding: 16px 18px; color: var(--text); font-size: 15px; white-space: pre-wrap; }
+@media (max-width: 760px) { .two { grid-template-columns: 1fr; } .tbl td:last-child { white-space: normal; } }
+.tbl td:nth-child(2) { white-space: nowrap; }

@@ -77,7 +77,7 @@ export default async (req) => {
     await tg('sendMessage', {
       chat_id: GROUP,
       parse_mode: 'HTML',
-      text: `🎓 <b>КУРС ВЫДАН АВТОМАТИЧЕСКИ${p.test ? ' (ТЕСТ)' : ''}</b>\nТариф: «${esc(tariff)}» — ${esc(p.amount?.value)} ₽\nИмя: ${esc(m.name)}\nТелефон: ${esc(m.phone)}\nTelegram: ${esc(m.telegram)}\nЧат: ${esc(chat)}${extra}`
+      text: `🎓 <b>КУРС ВЫДАН АВТОМАТИЧЕСКИ${p.test ? ' (ТЕСТ)' : ''}</b>\nТариф: «${esc(tariff)}» — ${esc(p.amount?.value)} ₽\nИмя: ${esc(m.name)}\nТелефон: ${esc(m.phone)}\nTelegram: ${esc(m.telegram)}${m.ref ? `\n🤝 Представитель (код): ${esc(m.ref)}` : ''}\nЧат: ${esc(chat)}${extra}`
     });
   }
   return new Response('ok');

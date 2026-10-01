@@ -16,6 +16,8 @@ const json = (status, body) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
 
 const clean = (s, max = 100) => String(s || '').trim().slice(0, max);
+// Код регионального представителя из ссылки ?ref=… (только латиница, цифры, - и _)
+const cleanRef = (s) => (/^[A-Za-z0-9_-]{1,40}$/.test(String(s || '')) ? String(s) : '');
 
 export function buildPayment(input, order = '') {
   const tariff = TARIFFS[input.tariff];
@@ -37,7 +39,8 @@ export function buildPayment(input, order = '') {
       phone,
       telegram: clean(input.telegram, 60),
       email,
-      order
+      order,
+      ref: cleanRef(input.ref)
     }
   };
 

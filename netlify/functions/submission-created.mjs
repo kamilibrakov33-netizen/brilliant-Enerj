@@ -8,7 +8,8 @@ const ICONS = {
   'Организация / госучреждение': '🏛',
   'Генподрядчик / субподряд': '🏗',
   'Хочу на курс': '🎓',
-  'Я мастер': '🔧'
+  'Я мастер': '🔧',
+  'Региональный представитель': '🤝'
 };
 
 const esc = (s) => String(s || '—').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -21,6 +22,9 @@ export function leadText(d) {
     `Имя: ${esc(d.name)}`,
     `Телефон: ${esc(d.phone)}`,
     `Город: ${esc(d.city)}`,
+    ...(d.telegram ? [`Telegram: ${esc(d.telegram)}`] : []),
+    ...(d.channel ? [`Канал/аккаунт: ${esc(d.channel)}`] : []),
+    ...(d.followers ? [`Подписчиков: ${esc(d.followers)}`] : []),
     `Сообщение: ${esc(d.message)}`
   ].join('\n');
 }
