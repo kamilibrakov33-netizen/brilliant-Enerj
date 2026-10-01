@@ -67,6 +67,11 @@ canvas{display:block}
 .seg button.on{background:var(--accent);color:#fff}
 .seg .lbl{padding:7px 10px;font-size:12px;color:var(--muted);border-right:1px solid var(--line)}
 #hint{position:absolute;left:14px;top:14px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12px;color:var(--muted)}
+#cap{position:absolute;left:0;right:0;bottom:0;padding:22px 34px 26px;background:linear-gradient(to top,rgba(10,22,34,.92),rgba(10,22,34,.78) 70%,rgba(10,22,34,0));color:#fff}
+#cap .ct{font-size:34px;font-weight:700;line-height:1.15;margin-bottom:8px}
+#cap .c1,#cap .c2{font-size:24px;line-height:1.35}
+#cap .c2{color:#ffd28a}
+#cap .c3{font-size:17px;color:#b9c7d3;margin-top:6px}
 #tip{position:absolute;pointer-events:none;background:#1b1f24;color:#fff;font-size:12px;padding:3px 8px;border-radius:5px;display:none;white-space:nowrap}
 @media (max-width:900px){
   #app{grid-template-columns:1fr;grid-template-rows:55vh 45vh}
@@ -99,6 +104,7 @@ canvas{display:block}
     <div id="hint">Вращение — левая кнопка мыши · сдвиг — правая · масштаб — колесо · клик по элементу открывает карточку</div>
     <div id="card"><button class="x" aria-label="Закрыть">×</button><div id="cardBody"></div></div>
     <div id="tip"></div>
+    <div id="cap" hidden><div class="ct"></div><div class="c1"></div><div class="c2"></div><div class="c3"></div></div>
     <div id="bar">
       <div class="seg" id="views">
         <span class="lbl">Вид</span>
@@ -1667,7 +1673,7 @@ label('≈ 215 м до КТП (показано сокращённо)', [TX+2, .
 seg([TX+.28,-.75,1.4],[TX+.28,-.75,-41.8], .02, 0x9aa3ab, 'gout', {rs:4, m:{metalness:.7, roughness:.35}});
 
 // ---------------- Дорога ----------------
-box(14, .12, ROAD1-ROAD0 < 0 ? ROAD0-ROAD1 : 7.5, TX-1, .06, (ROAD0+ROAD1)/2, 0x5d6166, null, {layer:'soil'});
+box(14, .12, 7.5, TX-1, .06, (ROAD0+ROAD1)/2, 0x5d6166, null, {layer:'soil', m:{transparent:true, opacity:.55, depthWrite:false}});
 box(14, .01, .15, TX-1, .125, (ROAD0+ROAD1)/2, 0xf2f2f2, null, {layer:'soil'});
 [-.12,.12].forEach(dx => seg([TX+dx,-1.0,ROAD0+.4],[TX+dx,-1.0,ROAD1-.4], .045, 0xe2711d, 'road', {m:{roughness:.6}}));
 label('Автодорога', [TX-5, .3, (ROAD0+ROAD1)/2], null, {out:true});
@@ -1770,9 +1776,9 @@ g([[9.0,CL,10.0],[9.0,CL,11.7],[6.6,CL,11.7]]);
 const SW = [[7.95,3.8,'x'],[7.95,11.1,'x'],[12.98,3.3,'x'],[13.22,7.95,'x'],[10.12,9.3,'x'],[8.4,7.98,'z'],[13.22,11.3,'x'],[12.4,2.4,'z']];
 SW.forEach(([x,z,ax],i) => {
   g([[x,CL,z],[x,FL+1.0+.06,z]]);
-  box(ax==='x'?.04:.08, .08, ax==='x'?.08:.04, x, FL+1.0, z, 0xffffff, 'switches');
+  box(ax==='x'?.05:.12, .12, ax==='x'?.12:.05, x, FL+1.0, z, 0xffffff, 'switches', {m:{emissive:0x2a6fb0, emissiveIntensity:.25}});
 });
-label('Выключатель, h = 1,0 м', [7.95, FL+1.25, 3.8], 'switches');
+label('Выключатель, h = 1,0 м', [7.95, FL+1.25, 3.8], 'switches'); label('Выключатель, h = 1,0 м', [13.22, FL+1.25, 7.95], 'switches');
 // розетки и конвекторы: от ШР вверх, по потолку вдоль стен
 g([[9.55,FL+2.0,2.32],[9.55,CL-.1,2.32],[13.0,CL-.1,2.32],[13.35,CL-.1,2.4],[13.35,CL-.1,11.5]]);
 g([[13.35,CL-.1,2.4],[18.35,CL-.1,2.4],[18.35,CL-.1,11.5]]);
@@ -1780,9 +1786,9 @@ g([[12.95,CL-.1,2.32],[12.95,CL-.1,6.6]]);
 const RK = [[12.4,2.33,'z'],[12.95,5.4,'x'],[13.25,3.8,'x'],[13.25,10.0,'x'],[18.37,4.6,'x'],[18.37,9.8,'x']];
 RK.forEach(([x,z,ax]) => {
   if (ax==='z') g([[x,CL-.1,z],[x,FL+.8+.07,z]]); else g([[x,CL-.1,z],[x,FL+.8+.07,z]]);
-  box(ax==='x'?.05:.14, .08, ax==='x'?.14:.05, x, FL+.8, z, 0xf2f2f2, 'sockets');
+  box(ax==='x'?.06:.22, .12, ax==='x'?.22:.06, x, FL+.8, z, 0xf2f2f2, 'sockets');
 });
-label('Розетка 2×16 А IP44, h = 0,8 м', [18.3, FL+1.05, 4.6], 'sockets');
+label('Розетка 2×16 А IP44, h = 0,8 м', [18.3, FL+1.05, 4.6], 'sockets'); label('Розетка, h = 0,8 м', [13.25, FL+1.05, 3.8], 'sockets');
 [[12.97,6.6],[13.23,6.6]].forEach(([x,z]) => {
   g([[x,CL-.1,z],[x,FL+.75,z]]);
   box(.1,.45,.6, x+(x<13.1?-.05:.05), FL+.45, z, 0xf6f6f6, 'conv');
@@ -1948,7 +1954,7 @@ function placeLabels(w, h){
     const vis = layerOn.labels && (!l.tag || (stageOf[l.tag]||0) <= maxStage);
     v3.copy(l.pos).project(camera);
     const d = camera.position.distanceTo(l.pos);
-    const show = vis && !(l.out && camera.position.y < 0) && v3.z < 1 && Math.abs(v3.x) < 1.05 && Math.abs(v3.y) < 1.05 && (d < (l.tag ? 14 : 40) || l.tag === selected);
+    const show = vis && !(l.out && camera.position.y < 0) && (!window.__onlySel || l.tag === selected || (window.__also||[]).includes(l.tag)) && v3.z < 1 && Math.abs(v3.x) < 1.05 && Math.abs(v3.y) < 1.05 && (d < (l.tag ? 14 : 40) || l.tag === selected);
     l.el.style.display = show ? 'block' : 'none';
     if (show){ l.el.style.left = ((v3.x+1)/2*w) + 'px'; l.el.style.top = ((1-v3.y)/2*h) + 'px'; l.el.classList.toggle('sel', !!l.tag && l.tag === selected); }
   });
@@ -1988,6 +1994,7 @@ function resize(){
 window.addEventListener('resize', resize); resize();
 camera.position.set(...views.all.p); controls.target.set(...views.all.t);
 function loop(t){
+  if (window.__paused){ requestAnimationFrame(loop); return; }
   if (fly){
     let k = Math.min(1, (performance.now()-fly.s)/900); k = k<.5 ? 2*k*k : 1-Math.pow(-2*k+2,2)/2;
     camera.position.lerpVectors(fly.p0, fly.p1, k); controls.target.lerpVectors(fly.t0, fly.t1, k);
@@ -2000,7 +2007,11 @@ function loop(t){
 }
 requestAnimationFrame(loop);
 // для скриншотов отчёта
-window.__sulak = {shot:(v,tag)=>{ const o = views[v] || focus[v]; camera.position.set(...o.p); controls.target.set(...o.t); controls.update(); select(tag||null,false); document.getElementById('card').classList.remove('on'); resize(); }, goTo: v => { const o = views[v] || focus[v]; camera.position.set(...o.p); controls.target.set(...o.t); controls.update(); }, select, layerOn, layer,
+window.__sulak = {focus, views,
+  frame:(p,t,cap)=>{ camera.position.set(...p); controls.target.set(...t); camera.lookAt(controls.target); camera.updateMatrixWorld(); renderer.render(scene,camera); placeLabels(view.clientWidth, view.clientHeight);
+    const c = document.getElementById('cap'); if (cap){ c.hidden=false; c.querySelector('.ct').textContent=cap[0]; c.querySelector('.c1').textContent=cap[1]||''; c.querySelector('.c2').textContent=cap[2]||''; c.querySelector('.c3').textContent=cap[3]||''; } else c.hidden=true; },
+  hl:(tag)=>{ select(tag||null,false); document.getElementById('card').classList.remove('on'); resize(); },
+  shot:(v,tag)=>{ const o = views[v] || focus[v]; camera.position.set(...o.p); controls.target.set(...o.t); controls.update(); select(tag||null,false); document.getElementById('card').classList.remove('on'); resize(); }, goTo: v => { const o = views[v] || focus[v]; camera.position.set(...o.p); controls.target.set(...o.t); controls.update(); }, select, layerOn, layer,
   setLayer:(l,on)=>{ layerOn[l]=on; if(l!=='labels') layer[l].forEach(m=>m.visible=on); }};
 })();
 </script>
