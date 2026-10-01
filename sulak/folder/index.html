@@ -1,0 +1,181 @@
+<title>Папка «Сулак 3069-ЭС»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: одна колонка как папка с документами — сводка, три файла, этапы, вопросы, письмо */
+:root{
+  --bg:#f3f4f2; --paper:#ffffff; --ink:#1c2321; --muted:#5b6662; --line:#dde2df;
+  --accent:#0e5a8a; --accent-soft:#e3eef6; --amber:#9a5b00; --amber-soft:#fbf0dc;
+  --f-body:"Golos Text", "Segoe UI", Roboto, Arial, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#141917; --paper:#1c2321; --ink:#e7ece9; --muted:#9aa6a1; --line:#2f3a36;
+  --accent:#6fb3e3; --accent-soft:#1d3342; --amber:#e4a64a; --amber-soft:#3a2d17; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#141917; --paper:#1c2321; --ink:#e7ece9; --muted:#9aa6a1; --line:#2f3a36;
+  --accent:#6fb3e3; --accent-soft:#1d3342; --amber:#e4a64a; --amber-soft:#3a2d17; color-scheme:dark }
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--f-body)}
+.wrap{max-width:820px;margin:0 auto;padding-inline:16px;padding-block:28px 56px;display:grid;gap:28px}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(28px,5vw,38px);line-height:1.15;margin:8px 0 6px;text-wrap:balance}
+h2{font-size:20px;margin:0 0 10px;text-wrap:balance}
+p{margin:0}
+.lead{color:var(--muted);max-width:65ch}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px 22px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 22px;margin-top:4px}
+.facts dt{font:500 11px/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.facts dd{margin:3px 0 0}
+.plain{display:grid;gap:10px;max-width:65ch}
+.plain b{color:var(--accent)}
+.files{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.file{display:flex;flex-direction:column;gap:6px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+.file .ext{font:500 12px/1 var(--f-mono);color:var(--muted)}
+.file h3{margin:0;font-size:17px}
+.file p{color:var(--muted);font-size:14px;flex:1}
+.btn{display:inline-block;align-self:flex-start;margin-top:6px;background:var(--accent);color:var(--paper);text-decoration:none;font-weight:600;font-size:14px;padding:8px 14px;border-radius:7px;border:0;cursor:pointer;font-family:inherit}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.stages{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+.stages li{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start}
+.stages .n{font:500 13px/1 var(--f-mono);color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:7px 0;text-align:center}
+.stages b{display:block}
+.stages span{color:var(--muted);font-size:14px}
+.qs{margin:0;padding-left:22px;display:grid;gap:8px}
+.qs b{font-weight:600}
+.note{background:var(--amber-soft);border-radius:8px;padding:12px 14px;font-size:14px}
+.note b{color:var(--amber)}
+.letter{white-space:pre-wrap;font:14px/1.6 var(--f-body);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:10px 0 0;max-height:420px;overflow:auto}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+#copied{font-size:13px;color:var(--muted)}
+footer{font-size:13px;color:var(--muted);display:grid;gap:4px}
+.mono{font-family:var(--f-mono);font-size:13px}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">НПС «Сулак» · шифр 3069-ЭС · электроснабжение</div>
+    <h1>Папка проекта для рассмотрения</h1>
+    <p class="lead">Здесь всё, что подготовлено для заказчика (АО «Черномортранснефть»): 3D-модель, пояснение в PDF и сопроводительное письмо. Перед отправкой просьба посмотреть и дать замечания.</p>
+  </header>
+
+  <section class="sheet">
+    <h2>Коротко: что поручили и что собираемся делать</h2>
+    <div class="plain">
+      <p><b>Объект.</b> Подземный (заглублённый) склад с укрытием на 50 человек на нефтеперекачивающей станции «Сулак». Пол на глубине 3,58 м.</p>
+      <p><b>Что поручили.</b> Мы на субподряде у ООО «Инженерная группа специалистов» и делаем всю электрику по проекту 3069-ЭС. Сюда входят щиты с автоматическим переключением на резервное питание, свет, розетки, обогрев, вентиляция, кабели, траншея и заземление.</p>
+      <p><b>Что хочет заказчик.</b> Транснефть просит наглядно показать, как будет выполнена каждая работа: что и на что крепится, чем крепится гофра, как идёт кабель, по каким нормам.</p>
+      <p><b>Что подготовили.</b> 3D-модель, в которой каждая работа открывается отдельно, и PDF с тем же содержанием для печати. Всё сделано по чертежам заказчика.</p>
+      <p><b>Главная находка.</b> В проекте не заложен крепёж: дюбели для 300 скоб гофры, анкеры для щитов, крепёж кабель-канала и светильников. Мы предложили свой, но ставить его будем только после согласования, иначе он ляжет на наш счёт.</p>
+    </div>
+    <dl class="facts">
+      <div><dt>Заказчик</dt><dd>АО «Черномортранснефть»</dd></div>
+      <div><dt>Генподрядчик</dt><dd>ООО «Инженерная группа специалистов»</dd></div>
+      <div><dt>Исполнитель</dt><dd>ИП Ибраков К.М. (Brilliant Energy)</dd></div>
+      <div><dt>Объём</dt><dd>27 видов работ в 6 этапах</dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Файлы</h2>
+    <div class="files">
+      <div class="file">
+        <span class="ext">HTML · 3D-модель</span>
+        <h3>Интерактивная 3D-схема</h3>
+        <p>Модель можно вращать мышью или пальцем. Слева список работ: нажмите на работу, и откроется, как она выполняется и чем крепится.</p>
+        <a class="btn" href="model-3d.html" target="_blank" rel="noopener">Открыть модель</a>
+      </div>
+      <div class="file">
+        <span class="ext">PDF · 12 листов</span>
+        <h3>Пояснение к 3D-схеме</h3>
+        <p>Виды из модели, таблица всех работ с креплением и ГОСТами, вопросы к заказчику и место для подписей.</p>
+        <a class="btn" href="poyasnenie-3d.pdf" target="_blank" rel="noopener">Открыть PDF</a>
+      </div>
+      <div class="file">
+        <span class="ext">Текст · письмо</span>
+        <h3>Сопроводительное письмо</h3>
+        <p>Его текст приведён ниже на этой странице. Отправляется заказчику вместе с двумя файлами, в копии — генподрядчик.</p>
+        <a class="btn ghost" href="#letter">Читать письмо</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <h2>Этапы работ</h2>
+    <ol class="stages">
+      <li><span class="n">2</span><div><b>Кабельные трассы</b><span>Траншея 0,7×0,9 м на 215 м, переход под дорогой в трубах, спуск кабеля с эстакады в лотке, гильзы в стенах, кабель-канал, 150 м гофры на скобах через 0,5 м.</span></div></li>
+      <li><span class="n">3</span><div><b>Прокладка кабеля</b><span>Два питающих кабеля 5×35 по 275 м (по территории их прокладывает заказчик, мы разделываем и подключаем), около 300 м внутренних кабелей, бирки, наконечники.</span></div></li>
+      <li><span class="n">4</span><div><b>Щиты</b><span>Главный щит с автоматическим переключением питания (АВР), щит розеток, щит освещения, щиток вентиляции, шкаф для подключения дизель-генератора.</span></div></li>
+      <li><span class="n">5</span><div><b>Свет и оборудование</b><span>14 светильников (8 из них аварийные), 2 взрывозащищённых снаружи, указатели «Выход», выключатели, розетки, 2 обогревателя, 2 вентилятора на кровле, знаки кабельной линии.</span></div></li>
+      <li><span class="n">6</span><div><b>Заземление</b><span>Стальная полоса 3×40 в земле на глубине 0,7 м, 4 электрода по 5 м, магистраль внутри с жёлто-зелёной окраской. Сопротивление — не больше 4 Ом.</span></div></li>
+      <li><span class="n">7</span><div><b>Пусконаладка и сдача</b><span>Замеры и испытания по 29 линиям, проверка контура заземления, исполнительная документация, акты скрытых работ.</span></div></li>
+    </ol>
+  </section>
+
+  <section class="sheet">
+    <h2>Вопросы, которые задаём заказчику</h2>
+    <ol class="qs">
+      <li><b>Дюбели для скоб гофры.</b> На 300 скоб нужно около 600 дюбелей, в проекте их нет.</li>
+      <li><b>Анкеры для щитов.</b> Щиты навесные, район сейсмичный (8+ баллов), а анкеров в проекте нет.</li>
+      <li><b>Крепёж кабель-канала, светильников, обогревателей, коробок.</b> В проекте не указан.</li>
+      <li><b>Крепление к стойке эстакады.</b> Предлагаем на болтах, без сварки, чтобы не оформлять огневые работы на действующей станции.</li>
+      <li><b>Раздел 3069-АС.</b> В нём крепёж вентиляторов, а нам его не передали.</li>
+      <li><b>Труба ПНД 50.</b> В одном документе проекта 15 м, в другом 30 м.</li>
+      <li><b>Гофра ПВХ 25.</b> Кабеля в гофре по проекту около 186 м, а самой гофры заложено 150 м.</li>
+      <li><b>Ошибки в спецификации.</b> Масса светильника, количество мастики, масса стального круга.</li>
+    </ol>
+  </section>
+
+  <section class="sheet" id="letter">
+    <h2>Письмо заказчику</h2>
+    <div class="row">
+      <button class="btn" id="copy" type="button">Скопировать текст</button>
+      <span id="copied" role="status"></span>
+    </div>
+<pre class="letter" id="letterText">Тема: НПС «Сулак», 3069-ЭС — 3D-схема электромонтажных работ и вопросы по креплению
+
+Добрый день, [Имя Отчество].
+
+Направляю наглядную схему того, как будут выполнены электромонтажные работы по разделу 3069-ЭС на объекте «НПС «Сулак». Заглублённый склад хранения материальных ценностей с резервным МДП».
+
+Во вложении два файла:
+1. Сулак_3069-ЭС_3D.html — интерактивная 3D-модель. Открывается двойным щелчком в любом браузере, интернет не нужен. По каждому из 27 видов работ открывается карточка: объём, способ прокладки и крепления, позиции СО и ВР, нормативы.
+2. Сулак_3069-ЭС_пояснение_к_3D.pdf — то же самое в печатном виде на 12 листах: виды модели, таблица работ, вопросы и лист согласования.
+
+Всё построено по рабочей документации 3069-ЭС (листы 1–11, СО, ВР, ОЛ1–ОЛ3). То, чего в проекте нет, выделено отдельно как наше предложение. Применять его будем только после вашего согласования.
+
+До начала работ прошу рассмотреть 8 вопросов. Основные из них:
+— в спецификацию не заложен крепёж: дюбели для 300 скоб гофры, анкеры для навесных щитов (сейсмичность 8+ баллов), крепёж кабель-канала, светильников и конвекторов;
+— крепление Z-профиля к стойке эстакады: предлагаем болтовое, без огневых работ;
+— раздела 3069-АС с креплением вентиляторов в комплекте нет;
+— расхождения в объёмах: труба ПНД Ø50 (15 м в СО, 30 м в ВР) и гофра ПВХ Ø25.
+
+Полный список — на последнем листе PDF и во вкладке «Вопросы» в модели. Ответить можно письмом или отметками на этом листе.
+
+Готов показать модель по видеосвязи и ответить на вопросы.
+
+С уважением,
+Камиль Ибраков
+ИП Ибраков К.М. (Brilliant Energy),
+субподрядчик ООО «Инженерная группа специалистов»
++7 960 911-19-98
+kamilibrakov33@gmail.com</pre>
+  </section>
+
+  <div class="note"><b>Важно.</b> Чертежи проекта 3069-ЭС помечены грифом «Коммерческая тайна». Ссылку на эту страницу не пересылайте посторонним.</div>
+
+  <footer>
+    <span>Подготовлено по рабочей документации 3069-ЭС (ПСБ АО «Черномортранснефть», 2025).</span>
+    <span>Камиль Ибраков · <span class="mono">+7 960 911-19-98</span> · <span class="mono">kamilibrakov33@gmail.com</span></span>
+  </footer>
+</div>
+
+<script>
+document.getElementById('copy').addEventListener('click', function(){
+  var t = document.getElementById('letterText'), s = document.getElementById('copied');
+  function fallback(){ var r = document.createRange(); r.selectNodeContents(t); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r); s.textContent = 'Текст выделен, нажмите Ctrl+C'; }
+  try {
+    navigator.clipboard.writeText(t.textContent).then(function(){ s.textContent = 'Скопировано'; }, fallback);
+  } catch (e) { fallback(); }
+});
+</script>
