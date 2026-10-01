@@ -19,7 +19,7 @@ async function tg(method, body) {
   return j;
 }
 
-const START = { inline_keyboard: [[{ text: '▶️ Начать обучение', callback_data: 'ex_0_ok' }]] };
+const START = { inline_keyboard: [[{ text: '▶️ Начать курс', callback_data: 'ex_0_ok' }]] };
 const HELP = '\n\nЕсли это ошибка — напишите сюда, в бот, или позвоните +7 960 911-19-98.';
 
 export function isPaid(p) {
@@ -68,7 +68,7 @@ export default async (req) => {
   await tg('sendMessage', {
     chat_id: chat,
     text: `✅ Оплата подтверждена${tariff ? `, тариф «${tariff}»` : ''}. Добро пожаловать в Brilliant Energy!\n\n` +
-      'Курс «Электромонтаж с нуля» проходит здесь, в Telegram: урок → короткий экзамен → следующий урок. Всего 49 уроков.\n\n' +
+      'Курс «Электромонтаж с нуля» проходит здесь, в Telegram: урок → короткие проверочные вопросы → следующий урок. Всего 49 уроков.\n\n' +
       'Когда будете готовы — нажмите кнопку. Первый урок придёт сразу.',
     reply_markup: START
   });

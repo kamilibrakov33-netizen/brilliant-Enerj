@@ -31,7 +31,7 @@ done
 
 # 3. Файлы сайта
 TMP=$(mktemp -d)
-cp index.html privacy.html oferta.html oplata.html kupit.html spasibo.html "$TMP"/
+cp index.html privacy.html soglasie.html oferta.html oferta-predstaviteley.html predstavitel.html oplata.html kupit.html spasibo.html "$TMP"/
 cp -r assets "$TMP"/
 yc storage s3 cp --recursive "$TMP"/ s3://$SITE_BUCKET/ >/dev/null
 

@@ -51,7 +51,7 @@ async function lead(event, context) {
   const data = {
     role: clean(d.role, 60), name: clean(d.name, 100), phone: clean(d.phone, 30),
     city: clean(d.city, 100), message: clean(d.message, 2000), consent: Boolean(d.consent),
-    telegram: clean(d.telegram, 60), channel: clean(d.channel, 300), followers: clean(d.followers, 30)
+    telegram: clean(d.telegram, 60), channel: clean(d.channel, 300), followers: clean(d.followers, 30), offer_version: clean(d.offer_version, 30)
   };
   if (!data.name || data.phone.replace(/\D/g, '').length < 10) return reply(400, { error: 'Укажите имя и телефон' });
   if (!data.consent) return reply(400, { error: 'Нужно согласие на обработку данных' });

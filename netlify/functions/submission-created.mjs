@@ -25,6 +25,7 @@ export function leadText(d) {
     ...(d.telegram ? [`Telegram: ${esc(d.telegram)}`] : []),
     ...(d.channel ? [`Канал/аккаунт: ${esc(d.channel)}`] : []),
     ...(d.followers ? [`Подписчиков: ${esc(d.followers)}`] : []),
+    ...(d.offer_version ? [`Оферта принята, версия: ${esc(d.offer_version)}`] : []),
     `Сообщение: ${esc(d.message)}`
   ].join('\n');
 }
